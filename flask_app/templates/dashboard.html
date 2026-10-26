@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis viajes</title>
+</head>
+<body>
+    <header>
+        <h1>Hola, {{ session.get('nombre', 'voluntario') }}</h1>
+        <button><a href="/mision/nuevo">Agregar nueva mision</a></button>
+        <button><a href="/cerrar_sesion">Cerrar sesión</a></button>
+    </header>
+    <section>
+        <h2>misiones:</h2>
+        {% if misiones %}
+        <table border="5">
+            <thead>
+                <tr>
+                    <th>usuario_id</th>
+                    <th>fecha</th>
+                    <th>voluntario_necesario</th>
+                    <th>descripcion</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            {% for mision in misiones %}
+                <tr>
+                    <td>{{ mision.destino }}</td>
+                    <td>{{ mision.fecha.strftime('%d/%m/%Y') }}</td>
+                    <td>{{ mision.voluntario_necesario }}</td>
+                    <td>{{ mision.descripcion }}</td>
+                    <td>
+                        <a href="/viajes/{{ viaje.id }}/ver">Ver</a>
+                        <a href="/viajes/{{ viaje.id }}/editar">Editar</a>
+                        <form action="/viajes/{{ viaje.id }}/eliminar" method="post" style="display:inline;">
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>Aún no tienes misiones. Agrega el primero usando el formulario.</p>
+        {% endif %}
+    </section>
+</body>
+</html>
