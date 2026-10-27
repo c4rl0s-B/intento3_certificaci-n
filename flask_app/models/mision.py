@@ -1,5 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
+from datetime import date
 
 class Mision:
     def __init__(self, data):
@@ -55,6 +56,9 @@ class Mision:
 
         if not formulario.get('fecha'):
             flash("La fecha es obligatoria",'mision')
+            es_valido = False
+        elif formulario['fecha']< date.today().isoformat():
+            flash("La fecha de la mision no puede ser anterior a la actual", ' mision')
             es_valido = False
 
         

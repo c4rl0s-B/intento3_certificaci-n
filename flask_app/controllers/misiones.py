@@ -3,6 +3,7 @@ from flask_app import app
 from flask import render_template, redirect, flash, session, request
 from flask_app.models.usuario import Usuario
 from flask_app.models.mision import Mision
+from datetime import date
 
 @app.route('/dashboard')
 def dashboard():
@@ -42,7 +43,7 @@ def nueva_mision():
         flash("debes iniciar sesion primero para acceder a esta pagina", "error_mision")
         return redirect('/')
     usuario = Usuario.get_by_id({'id': session['usuario_id']})
-    return render_template('nueva_mision.html', usuario=usuario)
+    return render_template('nueva_mision.html', usuario=usuario, now_date=date.today().isoformat())
 
 @app.route('/misiones/crear', methods=['POST'])
 def crear_mision():
@@ -90,29 +91,52 @@ def eliminar_mision(id):
     return redirect('/misiones')
 
 
+
 @app.route('/mision/<int:id>/editar')
 def editar_mision(id):
     if 'usuario_id' not in session:
         flash("Debes iniciar sesión para acceder a esta página", "error")
         return redirect('/')
-    
+
     mision = Mision.get_by_id({'id': id})
+
     if not mision:
-        flash("Viaje no encontrado", "error")
+        flash("Mision no encontrada", "error")
         return redirect('/misiones')
-    
+
+    if mision.usuario_id != session['usuario_id']:
+        flash("No tienes permiso para editar esta mision", "error")
+        return redirect('/misiones')
+
     usuario = Usuario.get_by_id({'id': session['usuario_id']})
-    return render_template('editar_mision.html', usuario=usuario, mision=mision)
+
+    return render_template(
+        'editar_mision.html',
+        usuario=usuario,
+        mision=mision,
+        now_date=date.today().isoformat()
+    )
+
 
 @app.route('/mision/<int:id>/actualizar', methods=['POST'])
 def actualizar_mision(id):
     if 'usuario_id' not in session:
         flash("Debes iniciar sesión para acceder a esta página", "error")
         return redirect('/')
-    
+
+    mision = Mision.get_by_id({'id': id})
+
+    if not mision:
+        flash("Mision no encontrada", "error")
+        return redirect('/misiones')
+
+    if mision.usuario_id != session['usuario_id']:
+        flash("No tienes permiso para editar esta mision", "error")
+        return redirect('/misiones')
+
     if not Mision.validar_mision(request.form):
         return redirect(f'/mision/{id}/editar')
-    
+
     datos_mision = {
         'id': id,
         'nombre': request.form['nombre'].strip(),
@@ -120,5 +144,11 @@ def actualizar_mision(id):
         'voluntario_necesario': int(request.form['voluntario_necesario']),
         'descripcion': request.form['descripcion'].strip()
     }
+
     Mision.update(datos_mision)
+
+    flash("Mision actualizada correctamente", "success")
     return redirect('/misiones')
+
+    
+    

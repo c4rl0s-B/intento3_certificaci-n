@@ -17,14 +17,14 @@
     <h1>Editar misión</h1>
     <a href="/misiones">Volver a las misiones</a>
 
-    <form action="/misiones/{{ mision.id }}/actualizar" method="POST">
+    <form action="{{ url_for('actualizar_mision', id=mision.id) }}" method="POST">
 
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre"value="{{ mision.nombre }}" required>
         <br>
 
         <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha" name="fecha"value="{{ mision.fecha.strftime('%Y-%m-%d') }}" required>
+        <input type="date" id="fecha" name="fecha"value="{{ mision.fecha.strftime('%Y-%m-%d') }}" min="{{now_date}}" required>
         <br>
 
         <label for="voluntario_necesario">Voluntarios necesarios:</label>
