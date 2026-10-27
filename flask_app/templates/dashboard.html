@@ -34,7 +34,7 @@
                     <td>{{ mision.descripcion }}</td>
                     <td>
                         <a href="/mision/{{mision.id}}/ver">Ver</a>
-                        <a href="">Editar</a>
+                        <a href="{{ url_for('editar_mision', id=mision.id) }}">Editar</a>
                         <form action="/mision/{{mision.id}}/eliminar" method="post" style="display:inline;">
                             <button type="submit">Eliminar</button>
                         </form>

@@ -3,19 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>editar mision</title>
+    <title>Editar mision</title>
+</head>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar misión</title>
 </head>
 <body>
-    <head>
-        <h1>Editar Mision</h1>
-        <button><a href="/dashboard">volver</a></button>        
-    </head>
-    <body>
-        <form action="" method="POST">
+    <h1>Editar misión</h1>
+    <a href="/misiones">Volver a las misiones</a>
 
-        </form>
-    </body>
+    <form action="/misiones/{{ mision.id }}/actualizar" method="POST">
 
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre"value="{{ mision.nombre }}" required>
+        <br>
 
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha"value="{{ mision.fecha.strftime('%Y-%m-%d') }}" required>
+        <br>
+
+        <label for="voluntario_necesario">Voluntarios necesarios:</label>
+        <input type="number" id="voluntario_necesario"name="voluntario_necesario"value="{{ mision.voluntario_necesario }}"min="1" required>
+        <br>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion"required>{{ mision.descripcion }}</textarea>
+        <br>
+
+        <input type="submit" value="Actualizar misión">
+
+    </form>
+
+    
 </body>
 </html>

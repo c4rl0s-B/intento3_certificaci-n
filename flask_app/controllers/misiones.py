@@ -72,9 +72,53 @@ def crear_mision():
 @app.route('/mision/<int:id>/eliminar', methods=['POST'])
 def eliminar_mision(id):
     if 'usuario_id' not in session:
-        flash("Debes iniciar sesión para acceder a esta página", "error")
         return redirect('/')
+
+    mision = Mision.get_by_id({'id': id})
+
+    if not mision:
+        flash("Misión no encontrada", "error")
+        return redirect('/misiones')
+
+    if mision.usuario_id != session['usuario_id']:
+        flash("No tienes permiso para eliminar esta misión", "error")
+        return redirect('/misiones')
 
     Mision.eliminar({'id': id})
 
+    flash("Misión eliminada correctamente", "success")
+    return redirect('/misiones')
+
+
+@app.route('/mision/<int:id>/editar')
+def editar_mision(id):
+    if 'usuario_id' not in session:
+        flash("Debes iniciar sesión para acceder a esta página", "error")
+        return redirect('/')
+    
+    mision = Mision.get_by_id({'id': id})
+    if not mision:
+        flash("Viaje no encontrado", "error")
+        return redirect('/misiones')
+    
+    usuario = Usuario.get_by_id({'id': session['usuario_id']})
+    return render_template('editar_mision.html', usuario=usuario, mision=mision)
+
+@app.route('/mision/<int:id>/actualizar', methods=['POST'])
+def actualizar_mision(id):
+    if 'usuario_id' not in session:
+        flash("Debes iniciar sesión para acceder a esta página", "error")
+        return redirect('/')
+    
+    if not Mision.validar_mision(request.form):
+        return redirect(f'/mision/{id}/editar')
+    
+    datos_mision = {
+        'id': id,
+        'nombre': request.form['nombre'].strip(),
+        'fecha': request.form['fecha'],
+        'voluntario_necesario': int(request.form['voluntario_necesario']),
+        'descripcion': request.form['descripcion'].strip()
+    }
+    Mision.update(datos_mision)
     return redirect('/misiones')

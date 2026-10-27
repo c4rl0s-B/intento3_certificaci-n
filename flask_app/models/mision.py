@@ -44,6 +44,7 @@ class Mision:
         query = "DELETE FROM misiones WHERE id = %(id)s"
         return connectToMySQL('VoluntaMe').query_db(query,data)
 
+
     @staticmethod
     def validar_mision(formulario):
         es_valido = True
