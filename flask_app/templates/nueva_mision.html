@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>crear nueva mision</h1>
+    <form action="/misiones/crear" method="post">
+    {% for mensaje in get_flashed_messages(category_filter=['mision']) %}
+        <p role="alert">{{ mensaje }}</p>
+    {% endfor %}
+        <label for="nombre-nuevo">nombre:</label>
+        <input id="nombre-nuevo" name="nombre" type="text" maxlength="255" required>
+
+        <label for="Fecha">Fecha:</label>
+        <input id="fecha-nuevo" name="fecha" type="date" required>
+
+        <label for="voluntario_necesario-nuevo">voluntarios_necesarios:</label>
+        <input id="voluntario_necesario-nuevo" name="voluntario_necesario" type="number" required>
+
+        <label for="descripcion-nuevo">Descripcion:</label>
+        <textarea id="descripcion-nuevo" name="descripcion" required></textarea>
+        <button type="submit"> Guardar mision</button>
+    </form>
+</body>
+</html>

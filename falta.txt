@@ -1,0 +1,5 @@
+edita
+borrar
+boton de inicio
+creo = editar,borrar
+no se pueda ocupar una fecha anterior a la actual
