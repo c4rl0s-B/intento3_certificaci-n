@@ -1,0 +1,47 @@
+.encabezado{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+}
+.encabezado h1{
+    font-size: 40px;
+}
+h2{
+    font-size: 40px;
+}
+.botones-derecha{
+    display: flex;
+    align-items: center;
+    gap: 15;
+}
+.boton {
+    display: inline-block;
+    padding: 20px 10px;
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: white;
+    text-decoration: none;
+    gap: 29px;
+}
+.boton:hover {
+    background-color: #dcdcdc;
+}
+section{
+    padding: 20px;
+}
+
+section table{
+    margin-left: 20%;
+}
+section table thead{
+    width: 50px;
+    height: 40px;
+}
+section table tr{
+    width: 50px;
+    height: 40px;
+    align-items: center;
+}

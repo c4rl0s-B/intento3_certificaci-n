@@ -1,0 +1,13 @@
+.contenedor-formularios{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap:30px;
+    padding: 30px;
+}
+
+.formulario{
+    width: 350px;
+    padding: 25px;
+    border: 1px solid #ffffff;
+}

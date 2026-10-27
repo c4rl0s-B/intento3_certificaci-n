@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>registro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
     <!DOCTYPE html>
@@ -14,46 +15,48 @@
     <title>/Registro</title>
 </head>
 <body>
-    <form action="/registrar_usuario" method="post">
-        <h2>Registro</h2>
-        <br>
-    {% for mensaje in get_flashed_messages(category_filter=['registro']) %}
-        <p role="alert">{{ mensaje }}</p>
-    {% endfor %}
-        <label for="nombre_usuario_registro">Nombre:</label>
-        <input type="text" id="nombre_usuario_registro" name="nombre">
-        <br>
-        <label for="apellido_usuario_registro">Apellido:</label>
-        <input type="text" id="apellido_usuario_registro" name="apellido">
-        <br>
-        <label for="email_usuario_registro">E-mail:</label>
-        <input type="email" id="email_usuario_registro" name="email">
-        <br>
-        <label for="password_usuario_registro">Contraseña:</label>
-        <input type="password" id="password_usuario_registro" name="password">    
+    <main class="contenedor-formularios">
+        <form action="/registrar_usuario" method="post" class="formulario">
+            <h2>Registro</h2>
+            <br>
+        {% for mensaje in get_flashed_messages(category_filter=['registro']) %}
+            <p role="alert">{{ mensaje }}</p>
+        {% endfor %}
+            <label for="nombre_usuario_registro">Nombre:</label>
+            <input type="text" id="nombre_usuario_registro" name="nombre">
+            <br>
+            <label for="apellido_usuario_registro">Apellido:</label>
+            <input type="text" id="apellido_usuario_registro" name="apellido">
+            <br>
+            <label for="email_usuario_registro">E-mail:</label>
+            <input type="email" id="email_usuario_registro" name="email">
+            <br>
+            <label for="password_usuario_registro">Contraseña:</label>
+            <input type="password" id="password_usuario_registro" name="password">    
 
-        <br>
-        <label for="password_usuario_registro_conf">Confirmar Contraseña:</label>
-        <input type="password" id="password_usuario_registro_conf" name="conf_password">  
+            <br>
+            <label for="password_usuario_registro_conf">Confirmar Contraseña:</label>
+            <input type="password" id="password_usuario_registro_conf" name="conf_password">  
 
-        <br>
-        <input type="submit" value="Registrar">
-    </form>
+            <br>
+            <input type="submit" value="Registrar">
+        </form>
 
-    <form action="/iniciar_sesion" method="post">
-        <h2>Inicio Sesión</h2>
-        <br>
-    {% for mensaje in get_flashed_messages(category_filter=['inicio_sesion']) %}
-        <p role="alert">{{ mensaje }}</p>
-    {% endfor %}
-        <label for="email_inicio_sesion">E-mail:</label>
-        <input type="email" id="email_inicio_sesion" name="email_inicio_sesion">  
-        <br>
-        <label for="password_inicio_sesion">Password:</label>
-        <input type="password" id="password_inicio_sesion" name="password_inicio_sesion">  
-        <br>
-        <input type="submit" value="Iniciar Sesión">   
-    </form>
+        <form action="/iniciar_sesion" method="post" class="formulario">
+            <h2>Inicio Sesión</h2>
+            <br>
+        {% for mensaje in get_flashed_messages(category_filter=['inicio_sesion']) %}
+            <p role="alert">{{ mensaje }}</p>
+        {% endfor %}
+            <label for="email_inicio_sesion">E-mail:</label>
+            <input type="email" id="email_inicio_sesion" name="email_inicio_sesion">  
+            <br>
+            <label for="password_inicio_sesion">Password:</label>
+            <input type="password" id="password_inicio_sesion" name="password_inicio_sesion">  
+            <br>
+            <input type="submit" value="Iniciar Sesión">   
+        </form>
+    </main>
 </body>
 </html>
 </body>

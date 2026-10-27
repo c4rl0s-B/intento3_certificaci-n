@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis viajes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
 </head>
 <body>
-    <header>
+    <header class="encabezado">
         <h1>Hola, {{ session.get('nombre', 'voluntario') }}</h1>
-        <button><a href="/mision/nuevo">Agregar nueva mision</a></button>
-        <button><a href="/cerrar_sesion">Cerrar sesión</a></button>
+        <div class="botones-derecha">
+            <a href="/mision/nuevo" class="boton">Agregar nueva mision</a>
+            <a href="/cerrar_sesion" class="boton">Cerrar sesión</a>            
+        </div>
+
     </header>
     <section>
         <h2>misiones:</h2>
@@ -34,10 +38,12 @@
                     <td>{{ mision.descripcion }}</td>
                     <td>
                         <a href="/mision/{{mision.id}}/ver">Ver</a>
-                        <a href="{{ url_for('editar_mision', id=mision.id) }}">Editar</a>
-                        <form action="/mision/{{mision.id}}/eliminar" method="post" style="display:inline;">
-                            <button type="submit">Eliminar</button>
-                        </form>
+                        {%if session.get('usuario_id') == mision.usuario_id%}
+                            <a href="{{ url_for('editar_mision', id=mision.id) }}">Editar</a>
+                            <form action="/mision/{{mision.id}}/eliminar" method="post" style="display:inline;">
+                                <button type="submit">Eliminar</button>
+                            </form>
+                        {%endif%}
                     </td>
                 </tr>
             {% endfor %}
