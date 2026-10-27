@@ -69,3 +69,12 @@ def crear_mision():
     flash("Mision creada correctamente", "success")
     return redirect('/misiones')
 
+@app.route('/mision/<int:id>/eliminar', methods=['POST'])
+def eliminar_mision(id):
+    if 'usuario_id' not in session:
+        flash("Debes iniciar sesión para acceder a esta página", "error")
+        return redirect('/')
+
+    Mision.eliminar({'id': id})
+
+    return redirect('/misiones')
